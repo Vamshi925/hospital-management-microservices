@@ -43,6 +43,7 @@ public class SecurityConfig {
                         authorizeHttpRequests(request -> request
 
                 		// All endpoints from AppointmentController
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers(
                                 "/api/appointments/getAll",
                                 "/api/appointments/{appointmentId}",
