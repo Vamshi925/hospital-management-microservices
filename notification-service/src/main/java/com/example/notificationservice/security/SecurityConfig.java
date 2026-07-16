@@ -39,6 +39,7 @@ public class SecurityConfig {
         		.csrf(customizer -> customizer.disable()).
                 authorizeHttpRequests(request -> request
                 		// All endpoints from NotificationController
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers(
                                 "/notification/getAll",
                                 "/notification/{notificationId}",
