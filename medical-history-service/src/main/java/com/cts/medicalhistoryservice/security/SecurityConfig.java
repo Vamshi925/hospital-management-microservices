@@ -40,6 +40,7 @@ public class SecurityConfig {
                 authorizeHttpRequests(request -> request
 
                 		 // All endpoints from MedicalHistoryController
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers(
                                 "/medical-history/getAll",
                                 "/medical-history/{medicalHistoryId}",
