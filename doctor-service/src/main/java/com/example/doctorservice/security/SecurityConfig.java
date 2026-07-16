@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                 		.requestMatchers("/api/doctors/addDoctor")
             			.permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                 		.requestMatchers(
                                 "/api/doctors/getAll",  
                                 "/api/doctors/specialization/name/**", 
