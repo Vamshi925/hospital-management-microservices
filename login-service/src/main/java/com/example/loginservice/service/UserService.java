@@ -239,9 +239,6 @@ public class UserService {
 	@Transactional
 	public UserRegisterPatientDto registerPatient(UserRegisterPatientDto uRDto) {
 
-		if (!(roleRepository.existsById(uRDto.getRoleId()))) {
-			throw new ResourceNotFoundException("Role with the given ID does not exist. Enter valid Role ID");
-		}
 
 		if (userRepository.existsByEmail(uRDto.getEmail())) {
 			throw new DuplicateEntryException("Duplicate Entry : User with this email already exists");
@@ -257,7 +254,9 @@ public class UserService {
 		u.setCreatedAt(uRDto.getCreatedAt());
 		u.setUpdatedAt(uRDto.getUpdatedAt());
 
-		Role r = roleRepository.findById(uRDto.getRoleId()).orElse(null);
+		Role r = roleRepository.findByRoleName("ROLE_PATIENT")
+        .orElseThrow(() -> new ResourceNotFoundException("Patient role not found"));
+
 		u.setRole(r);
 
 		u.setUserId(uRDto.getUserId());
@@ -298,10 +297,6 @@ public class UserService {
 	@Transactional
 	public UserRegisterDoctorDto registerDoctor(UserRegisterDoctorDto uRDto) {
 
-		if (!(roleRepository.existsById(uRDto.getRoleId()))) {
-			throw new ResourceNotFoundException("Role with the given ID does not exist. Enter valid Role ID");
-		}
-
 		if (userRepository.existsByEmail(uRDto.getEmail())) {
 			throw new DuplicateEntryException("Duplicate Entry : User with this email already exists");
 		}
@@ -312,7 +307,9 @@ public class UserService {
 		u.setCreatedAt(uRDto.getCreatedAt());
 		u.setUpdatedAt(uRDto.getUpdatedAt());
 
-		Role r = roleRepository.findById(uRDto.getRoleId()).orElse(null);
+		Role r = roleRepository.findByRoleName("ROLE_DOCTOR")
+        .orElseThrow(() -> new ResourceNotFoundException("Doctor role not found"));
+
 		u.setRole(r);
 
 		u.setUserId(uRDto.getUserId());
