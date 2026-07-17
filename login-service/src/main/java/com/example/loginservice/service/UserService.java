@@ -255,7 +255,7 @@ public class UserService {
 		u.setUpdatedAt(uRDto.getUpdatedAt());
 
 		Role r = roleRepository.findByRoleName("ROLE_PATIENT")
-        .orElseThrow(() -> new ResourceNotFoundException("Patient role not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient role not found"));
 
 		u.setRole(r);
 
@@ -308,7 +308,7 @@ public class UserService {
 		u.setUpdatedAt(uRDto.getUpdatedAt());
 
 		Role r = roleRepository.findByRoleName("ROLE_DOCTOR")
-        .orElseThrow(() -> new ResourceNotFoundException("Doctor role not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor role not found"));
 
 		u.setRole(r);
 
