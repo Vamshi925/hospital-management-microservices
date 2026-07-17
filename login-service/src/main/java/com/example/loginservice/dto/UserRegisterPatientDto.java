@@ -27,10 +27,6 @@ public class UserRegisterPatientDto {
 	@Email(message = "Invalid email format")
 	private String email;
 
-	// @NotNull(message="Role id is required")
-	@NotBlank(message = "Role id should not be blank")
-	private String roleId;
-
 	@NotBlank(message = "Password is required")
 	@Size(min = 8, message = "Password must be at least 8 characters long")
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).+$", message = "Password must contain at least one digit, one lowercase letter, one uppercase letter, and one special character")
