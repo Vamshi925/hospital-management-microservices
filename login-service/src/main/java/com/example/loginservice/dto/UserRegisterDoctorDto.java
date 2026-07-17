@@ -23,8 +23,6 @@ public class UserRegisterDoctorDto {
 	private LocalDateTime updatedAt;
 
 	// UserDTO
-	@NotBlank(message = "Role id is required")
-	private String roleId;
 
 	private String userId;
 
