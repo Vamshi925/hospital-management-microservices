@@ -56,8 +56,14 @@ jobs:
             -Dsonar.sources=.
             -Dsonar.java.binaries=**/target/classes
 
+      - name: SonarCloud Quality Gate
+        uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
+        uses: snyk/actions/maven@0.4.0
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -72,7 +78,10 @@ jobs:
          format: table
          severity: CRITICAL,HIGH
          exit-code: 0
-          
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -86,6 +95,9 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.sha }} \
             .
 
+      - name: List Docker Images
+        run: docker images     
+        
       - name: Run Trivy Image Scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
