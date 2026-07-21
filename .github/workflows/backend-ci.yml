@@ -40,7 +40,7 @@ jobs:
           cache: maven
 
       - name: Compile Services
-        run: mvn clean compile -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Run Unit Tests
         run: mvn test
@@ -117,7 +117,7 @@ jobs:
 
             cd compose
 
-            docker compose pull
+            docker compose pull --quiet
 
             docker compose up -d --remove-orphans
 
