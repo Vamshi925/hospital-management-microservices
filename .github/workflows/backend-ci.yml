@@ -40,7 +40,7 @@ jobs:
           cache: maven
 
       - name: Compile Services
-        run: mvn clean compile -DSkipTests
+        run: mvn clean compile -DskipTests
 
       - name: Run Unit Tests
         run: mvn test
