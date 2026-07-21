@@ -50,6 +50,20 @@ jobs:
          pwd
          ls
          find . -name pom.xml
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: Hospital-Backend
+          path: .
+          format: HTML
+          out: reports
+
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-owasp-report
+          path: reports
          
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
