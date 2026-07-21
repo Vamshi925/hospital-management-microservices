@@ -61,12 +61,7 @@ jobs:
             -Dsonar.organization=vamshi925
             -Dsonar.sources=.
             -Dsonar.java.binaries=**/target/classes
-
-      - name: SonarCloud Quality Gate
-        uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            -Dsonar.qualitygate.wait=true
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@0.4.0
