@@ -39,6 +39,12 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Compile Services
+        run: mvn clean compile -DSkipTests
+
+      - name: Run Unit Tests
+        run: mvn test
+        
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
