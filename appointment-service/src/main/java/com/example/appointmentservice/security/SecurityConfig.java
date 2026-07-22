@@ -39,8 +39,7 @@ public class SecurityConfig {
 
         return http
         		.cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-        		.csrf(customizer -> customizer.disable()).
+                .csrf(csrf -> csrf.disable()).
                         authorizeHttpRequests(request -> request
 
                 		// All endpoints from AppointmentController
