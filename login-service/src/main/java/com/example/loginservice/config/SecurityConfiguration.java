@@ -58,7 +58,7 @@ public class SecurityConfiguration {
 	 * @throws Exception If an error occurs during configuration.
 	 */
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource)
+	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
 		return http
 			    .cors(Customizer.withDefaults())
