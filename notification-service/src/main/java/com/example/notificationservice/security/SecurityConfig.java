@@ -34,9 +34,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
 
-        return http.
-        		cors(cors->cors.configurationSource(corsConfigurationSource))
-        		.csrf(customizer -> customizer.disable()).
+        return http
+        		.cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable()).
                 authorizeHttpRequests(request -> request
                 		// All endpoints from NotificationController
                         .requestMatchers("/actuator/**").permitAll()
@@ -62,21 +62,6 @@ public class SecurityConfig {
                 .build();
 
     }
-    
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // Allow frontend requests
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow HTTP methods
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept")); // Define headers
-        configuration.setAllowCredentials(true); // Allow cookies/session headers
- 
-        // Register configuration
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
 }
 
 
