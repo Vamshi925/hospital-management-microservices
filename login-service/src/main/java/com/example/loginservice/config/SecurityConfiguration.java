@@ -60,16 +60,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     return http
         // 1. Disable CSRF for stateless REST APIs
         .csrf(csrf -> csrf.disable())
-
-        // 2. Bypass Spring Security's CORS checks (Gateway handles CORS)
-        .cors(cors -> cors.configurationSource(request -> {
-            var config = new org.springframework.web.cors.CorsConfiguration();
-            config.addAllowedOriginPattern("*");
-            config.addAllowedMethod("*");
-            config.addAllowedHeader("*");
-            config.setAllowCredentials(true);
-            return config;
-        }))
+		.cors(cors -> cors.disable())
 
         // 3. Authorization Rules
         .authorizeHttpRequests(request -> request
