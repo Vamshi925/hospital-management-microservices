@@ -35,10 +35,11 @@ public class SecurityConfig {
      * @throws Exception If an error occurs during configuration.
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,CorsConfigurationSource corsConfigurationSource) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.
-        		cors(cors->cors.configurationSource(corsConfigurationSource))
+        return http
+        		.cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
         		.csrf(customizer -> customizer.disable()).
                         authorizeHttpRequests(request -> request
 
@@ -68,19 +69,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
-    }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // Allow frontend requests
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow HTTP methods
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept")); // Define headers
-        configuration.setAllowCredentials(true); // Allow cookies/session headers
- 
-        // Register configuration
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 }
 
