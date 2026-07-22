@@ -1,5 +1,6 @@
 package com.example.loginservice.controller;
 
+
 import com.example.loginservice.dto.LoginDto;
 import com.example.loginservice.dto.UserDto;
 import com.example.loginservice.dto.UserRegisterDoctorDto;
@@ -26,7 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @Validated
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
 	@Autowired

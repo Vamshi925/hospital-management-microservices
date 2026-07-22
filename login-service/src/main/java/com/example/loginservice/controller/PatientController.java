@@ -30,7 +30,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/api/patients")
-@CrossOrigin(origins = "http://localhost:3000")
 public class PatientController {
 
 	@Autowired

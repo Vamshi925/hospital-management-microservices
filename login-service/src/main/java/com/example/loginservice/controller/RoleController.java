@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/role")
-@CrossOrigin(origins = "http://localhost:3000")
 public class RoleController {
 
 	@Autowired
