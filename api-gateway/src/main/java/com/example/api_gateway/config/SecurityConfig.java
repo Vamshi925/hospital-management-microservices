@@ -17,7 +17,7 @@ import java.util.List;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    // 1. Explicit CorsWebFilter executed HIGHEST_PRECEDENCE before Spring Security
+    // 1. Force CorsWebFilter to run BEFORE Spring Security's filter chain
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public CorsWebFilter corsWebFilter() {
@@ -38,7 +38,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         return http
             .csrf(ServerHttpSecurity.CsrfSpec::disable)
-            .cors(ServerHttpSecurity.CorsSpec::disable) // Disable inner security CORS since CorsWebFilter handles it above
+            .cors(ServerHttpSecurity.CorsSpec::disable) // CorsWebFilter above handles CORS globally
             .authorizeExchange(exchange -> exchange
                 .anyExchange().permitAll()
             )
