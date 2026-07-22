@@ -59,7 +59,6 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
 		return http
-			    .cors(cors -> cors.disable())
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(request -> request
 						.requestMatchers("/api/users/register", "/api/users/login", "/api/users/register/patient",
@@ -78,7 +77,6 @@ public class SecurityConfiguration {
 								"/api/patients/notifications/markAsRead/{notificationId}",
 								"/api/patients/filterAppointmentsByDate/{startDate}/{endDate}/{patientId}/{appointmentStatus}")
 						.authenticated().anyRequest().authenticated())
-				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
