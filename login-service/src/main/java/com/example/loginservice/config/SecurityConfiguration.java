@@ -3,8 +3,6 @@ package com.example.loginservice.config;
 import com.example.loginservice.filter.JwtFilter;
 import com.example.loginservice.service.CustomUserDetailsService;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Configuration class for Spring Security. Configures authentication and
@@ -63,10 +56,11 @@ public class SecurityConfiguration {
 	 * @throws Exception If an error occurs during configuration.
 	 */
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource)
+	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
-		return http.cors(cors -> cors.configurationSource(corsConfigurationSource))
-				.csrf(customizer -> customizer.disable())
+		return http
+			    .cors(Customizer.withDefaults())
+				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(request -> request
 						.requestMatchers("/api/users/register", "/api/users/login", "/api/users/register/patient",
 								"/api/users/register/doctor")
@@ -112,19 +106,5 @@ public class SecurityConfiguration {
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
-	}
-
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOrigin("http://localhost:3000"); // Allow frontend requests
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow HTTP methods
-		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept")); // Define headers
-		configuration.setAllowCredentials(true); // Allow cookies/session headers
-
-		// Register configuration
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
 	}
 }
