@@ -59,7 +59,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
 		return http
-			    
+			    .cors(cors -> cors.disable())
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(request -> request
 						.requestMatchers("/api/users/register", "/api/users/login", "/api/users/register/patient",
