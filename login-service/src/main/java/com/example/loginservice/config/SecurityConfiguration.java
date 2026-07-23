@@ -67,6 +67,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/api/users/register", "/api/users/login", "/api/users/register/patient",
 								"/api/users/register/doctor")
 						.permitAll()
+									   
 						.requestMatchers("/actuator/**").permitAll()
 						.requestMatchers("/api/patients/getAll", "/api/patients/{patientId}",
 								"/api/patients/name/{pName}", "/api/patients/update",
