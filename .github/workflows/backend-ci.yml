@@ -116,7 +116,13 @@ jobs:
           else
             echo "✅ NVD_API_KEY is available"
             fi
-            
+
+      - name: Verify NVD API Key Length
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: |
+          echo "Length: ${#NVD_API_KEY}"
+         
       - name: Install OWASP Dependency Check
         run: |
           wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
