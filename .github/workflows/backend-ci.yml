@@ -129,6 +129,7 @@ jobs:
             --format HTML \
             --out reports \
             --disableOssIndex
+            --data ~/.dependency-check \
             --nvdApiKey ${{ secrets.NVD_API_KEY }}
 
       - name: Upload OWASP Report
