@@ -129,8 +129,14 @@ jobs:
           key: owasp-db-${{ runner.os }}
           restore-keys: |
             owasp-db-
-            
+
+      - name: Check Dependency Check Version
+        run: |
+          ./dependency-check/bin/dependency-check.sh --version
+          
       - name: Run OWASP Dependency Check
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
           ./dependency-check/bin/dependency-check.sh \
             --project "Hospital-Backend" \
@@ -139,7 +145,7 @@ jobs:
             --out reports \
             --disableOssIndex
             --data ~/.dependency-check \
-            --nvdApiKey ${{ secrets.NVD_API_KEY }}
+            --nvdApiKey "$NVD_API_KEY"
 
       - name: Upload OWASP Report
         uses: actions/upload-artifact@v4
