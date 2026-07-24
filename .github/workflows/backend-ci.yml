@@ -107,21 +107,6 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --all-projects
-
-      - name: Verify NVD API Key
-        run: |
-          if [ -z "${{ secrets.NVD_API_KEY }}" ]; then
-            echo "❌ NVD_API_KEY is EMPTY or not found"
-            exit 1
-          else
-            echo "✅ NVD_API_KEY is available"
-            fi
-
-      - name: Verify NVD API Key Length
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: |
-          echo "Length: ${#NVD_API_KEY}"
          
       - name: Install OWASP Dependency Check
         run: |
@@ -149,7 +134,7 @@ jobs:
          ./dependency-check/bin/dependency-check.sh \
          --project test \
          --scan . \
-         --nvdApiKey "YOUR_ACTUAL_API_KEY"
+         --nvdApiKey "$NVD_API_KEY"
          
       - name: Run OWASP Dependency Check
         env:
