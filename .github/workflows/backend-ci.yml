@@ -139,7 +139,18 @@ jobs:
       - name: Check Dependency Check Version
         run: |
           ./dependency-check/bin/dependency-check.sh --version
-          
+
+      - name: Print Dependency Check Help
+        run: |
+          ./dependency-check/bin/dependency-check.sh --advancedHelp | grep nvd
+
+      - name: Test NVD API
+        run: |
+         ./dependency-check/bin/dependency-check.sh \
+         --project test \
+         --scan . \
+         --nvdApiKey "YOUR_ACTUAL_API_KEY"
+         
       - name: Run OWASP Dependency Check
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
